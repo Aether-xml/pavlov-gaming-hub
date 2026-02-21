@@ -42,7 +42,7 @@ export default function Navigation() {
           <div className="hidden lg:flex items-center gap-8 font-mono text-[0.65rem] tracking-[0.2em] text-white/25">
             <span className="flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-neon-green animate-pulse-glow" />
-              SİSTEM AKTİF
+              SISTEM AKTIF
             </span>
           </div>
 
@@ -50,18 +50,9 @@ export default function Navigation() {
             onClick={() => setOpen(!open)}
             className="relative w-10 h-10 flex flex-col items-end justify-center gap-1.5 group"
           >
-            <motion.span
-              className="block h-[1px] bg-white/60 group-hover:bg-electric-purple"
-              animate={{ width: 24, rotate: open ? 45 : 0, y: open ? 4 : 0 }}
-            />
-            <motion.span
-              className="block h-[1px] bg-white/60"
-              animate={{ width: open ? 0 : 16, opacity: open ? 0 : 1 }}
-            />
-            <motion.span
-              className="block h-[1px] bg-white/60 group-hover:bg-electric-purple"
-              animate={{ width: open ? 24 : 20, rotate: open ? -45 : 0, y: open ? -4 : 0 }}
-            />
+            <motion.span className="block h-[1px] bg-white/60 group-hover:bg-electric-purple" animate={{ width: 24, rotate: open ? 45 : 0, y: open ? 4 : 0 }} />
+            <motion.span className="block h-[1px] bg-white/60" animate={{ width: open ? 0 : 16, opacity: open ? 0 : 1 }} />
+            <motion.span className="block h-[1px] bg-white/60 group-hover:bg-electric-purple" animate={{ width: open ? 24 : 20, rotate: open ? -45 : 0, y: open ? -4 : 0 }} />
           </button>
         </div>
       </motion.nav>
@@ -77,21 +68,10 @@ export default function Navigation() {
           >
             <div className="px-12 md:px-24 space-y-2">
               {links.map((l, i) => (
-                <motion.div
-                  key={l.label}
-                  initial={{ opacity: 0, x: -40 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.1 + i * 0.08 }}
-                >
-                  <Link
-                    href={l.href}
-                    onClick={() => setOpen(false)}
-                    className="group flex items-baseline gap-6 py-4 border-b border-white/5 hover:border-electric-purple/20"
-                  >
+                <motion.div key={l.label} initial={{ opacity: 0, x: -40 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.1 + i * 0.08 }}>
+                  <Link href={l.href} onClick={() => setOpen(false)} className="group flex items-baseline gap-6 py-4 border-b border-white/5 hover:border-electric-purple/20">
                     <span className="font-mono text-fluid-xs text-electric-purple/40">{l.tag}</span>
-                    <span className="font-grotesk text-fluid-4xl font-light text-white/80 group-hover:text-white group-hover:translate-x-4 transition-all duration-500">
-                      {l.label}
-                    </span>
+                    <span className="font-grotesk text-fluid-4xl font-light text-white/80 group-hover:text-white group-hover:translate-x-4 transition-all duration-500">{l.label}</span>
                   </Link>
                 </motion.div>
               ))}
