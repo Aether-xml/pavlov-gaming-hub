@@ -1,0 +1,307 @@
+/* app/globals.css */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================
+   PAVLOV GAMING HUB — Global Styles
+   Art Direction: Experimental Dark Gaming Aesthetic
+   ============================================ */
+
+@layer base {
+  /* --- Typography Imports --- */
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+  :root {
+    --font-grotesk: 'Space Grotesk', system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+    --font-editorial: 'Playfair Display', Georgia, serif;
+
+    --color-void: #0a0a0a;
+    --color-electric-purple: #8B5CF6;
+    --color-electric-cyan: #06B6D4;
+    --color-neon-green: #39FF14;
+
+    --cursor-size: 20px;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-electric-purple) var(--color-void);
+  }
+
+  body {
+    font-family: var(--font-grotesk);
+    background-color: var(--color-void);
+    color: #e0e0e0;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::selection {
+    background: var(--color-electric-purple);
+    color: white;
+  }
+
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-void);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-electric-purple);
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #A78BFA;
+  }
+}
+
+@layer components {
+  /* --- Noise Texture Overlay --- */
+  .noise-overlay {
+    position: fixed;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.025;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+    animation: grain 0.5s steps(1) infinite;
+  }
+
+  /* --- Scan Line Effect --- */
+  .scan-line {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(139, 92, 246, 0.15),
+      rgba(6, 182, 212, 0.15),
+      transparent
+    );
+    z-index: 9998;
+    pointer-events: none;
+    animation: scanLine 4s linear infinite;
+  }
+
+  /* --- Glass Effect --- */
+  .glass {
+    background: rgba(15, 15, 15, 0.6);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(139, 92, 246, 0.08);
+  }
+
+  .glass-heavy {
+    background: rgba(10, 10, 10, 0.85);
+    backdrop-filter: blur(40px);
+    -webkit-backdrop-filter: blur(40px);
+    border: 1px solid rgba(139, 92, 246, 0.12);
+  }
+
+  /* --- Glitch Text --- */
+  .glitch-wrapper {
+    position: relative;
+  }
+  .glitch-text {
+    position: relative;
+  }
+  .glitch-text::before,
+  .glitch-text::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .glitch-text::before {
+    color: var(--color-electric-cyan);
+    animation: glitch1 2.5s infinite;
+    z-index: -1;
+  }
+  .glitch-text::after {
+    color: var(--color-electric-purple);
+    animation: glitch2 3s infinite;
+    z-index: -2;
+  }
+
+  /* --- Animated Border Gradient --- */
+  .border-glow {
+    position: relative;
+  }
+  .border-glow::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    padding: 1px;
+    border-radius: inherit;
+    background: linear-gradient(
+      135deg,
+      var(--color-electric-purple),
+      transparent 40%,
+      transparent 60%,
+      var(--color-electric-cyan)
+    );
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    background-size: 200% 200%;
+    animation: borderFlow 3s linear infinite;
+  }
+
+  /* --- Magnetic Button Base --- */
+  .magnetic-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .magnetic-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--color-electric-purple);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 0;
+  }
+  .magnetic-btn:hover::before {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+  .magnetic-btn span {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* --- Video Card Hover --- */
+  .video-card {
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .video-card::after {
+    content: '▶';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    font-size: 2rem;
+    color: white;
+    background: rgba(139, 92, 246, 0.9);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 10;
+    pointer-events: none;
+  }
+  .video-card:hover::after {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  .video-card:hover {
+    transform: translateY(-4px);
+  }
+  .video-card img {
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                filter 0.6s ease;
+  }
+  .video-card:hover img {
+    transform: scale(1.08);
+    filter: brightness(0.7);
+  }
+
+  /* --- Leaderboard Row Animation --- */
+  .leaderboard-row {
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .leaderboard-row:hover {
+    background: rgba(139, 92, 246, 0.06);
+    transform: translateX(4px);
+  }
+
+  /* --- Text Reveal Clip --- */
+  .text-reveal {
+    clip-path: inset(0 100% 0 0);
+    animation: textReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  /* --- Floating Label --- */
+  .floating-label {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(139, 92, 246, 0.5);
+  }
+
+  /* --- Marquee Text --- */
+  .marquee-track {
+    display: flex;
+    width: max-content;
+    animation: marquee 30s linear infinite;
+  }
+  .marquee-track:hover {
+    animation-play-state: paused;
+  }
+}
+
+@layer utilities {
+  .text-gradient-purple {
+    background: linear-gradient(135deg, #8B5CF6, #06B6D4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .text-gradient-warm {
+    background: linear-gradient(135deg, #FF6600, #FF10F0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .writing-vertical {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+  }
+
+  .grid-bg {
+    background-image:
+      linear-gradient(rgba(139, 92, 246, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(139, 92, 246, 0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+}
+
+@keyframes textReveal {
+  to {
+    clip-path: inset(0 0% 0 0);
+  }
+}
