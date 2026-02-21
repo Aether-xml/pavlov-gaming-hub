@@ -1,4 +1,4 @@
-// package.json
+cat > package.json << 'EOF'
 {
   "name": "pavlov-gaming-hub",
   "version": "1.0.0",
@@ -31,3 +31,4 @@
     "eslint-config-next": "14.2.15"
   }
 }
+EOF
